@@ -21,8 +21,8 @@ void gameloop() {
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
-    //entity::tests::korwintest test(utils::Position(100, 100));
-    //auto korwinRenderer = test.GetComponent<component::Renderable>();
+    entity::tests::korwintest test(utils::Position(100, 100));
+    auto korwinRenderer = test.GetComponent<component::Renderable>();
 
     sf::RectangleShape s(sf::Vector2f(50.f, 50.f));
 
