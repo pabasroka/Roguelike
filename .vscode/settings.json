@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "**/*.dll": true,
+    "**/vgcore": true,
+    "**/vgcore.*": true,
+    "**/*.o": true
+  }
+}
