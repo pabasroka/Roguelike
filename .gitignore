@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# object files
+
+*.o
+
+# vgcore?
+
+vgcore.*
+
+# vs code stuff
+
+*.vscode-ctags

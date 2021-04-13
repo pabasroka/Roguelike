@@ -64,6 +64,11 @@ void gameloop() {
 
         // DRAWING SECTION
         window.clear();
+        renderStruct toRender = korwinRenderer->Render();
+        if (toRender.sprite == nullptr) throw std::runtime_error("nullptr on sprite!");
+        if (toRender.shader == nullptr) {
+            window.draw(*(toRender.sprite));
+        }
         window.draw(s);
         //window.draw(*(korwinRenderer->Render()));
 

@@ -7,7 +7,7 @@
 namespace entity {
     Entity::Entity(utils::Position position_) {
         position = position_;
-        components = std::vector<std::shared_ptr<component::Component>>();
+        components = std::vector<std::unique_ptr<component::Component>>();
         Initialize();
     }
     /*
