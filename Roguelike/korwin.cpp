@@ -4,7 +4,7 @@
 
 namespace component {
     namespace sprites {
-        korwin::korwin(std::shared_ptr<entity::Entity> parent_) :component::SpriteRenderer(parent_) {
+        korwin::korwin(entity::Entity* parent_) :component::SpriteRenderer(parent_) {
             Initialize();
         }
         void korwin::Initialize() {

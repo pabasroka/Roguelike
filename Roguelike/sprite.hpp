@@ -10,10 +10,10 @@
 namespace component {
     class SpriteRenderer : public component::Renderable {
     public:
-        SpriteRenderer(std::shared_ptr<entity::Entity> parent_);
+        SpriteRenderer(entity::Entity* parent_);
         void Awake();
         virtual void Initialize(); // set texture here
-        sf::Sprite* Render(std::shared_ptr<utils::Position> cameraPos);
+        renderStruct Render() override;
     protected:
         sf::Sprite sprite;
         sf::Texture texture;

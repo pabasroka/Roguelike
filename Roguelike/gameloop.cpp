@@ -17,8 +17,6 @@ void gameloop() {
     entity::tests::korwintest test(utils::Position(100, 100));
     auto korwinRenderer = test.GetComponent<component::Renderable>();
 
-    sf::RectangleShape s(sf::Vector2f(50.f, 50.f));
-
     while (window.isOpen()) {
 
         sf::Event event;
@@ -28,15 +26,12 @@ void gameloop() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 window.close();
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            s.move(sf::Vector2f(50, 0.f));
-        //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-        //    view.zoom(0.5f);
- 
         window.clear();
-        //indow.draw(s);
-        window.draw(*(korwinRenderer->Render()));
+        renderStruct toRender = korwinRenderer->Render();
+        if (toRender.sprite == nullptr) throw std::runtime_error("nullptr on sprite!");
+        if (toRender.shader == nullptr) {
+            window.draw(*(toRender.sprite));
+        }
 
         window.display();
     }

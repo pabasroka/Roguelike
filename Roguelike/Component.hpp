@@ -10,12 +10,12 @@ namespace entity {
 namespace component {
     class Component {
     public:
-        Component(std::shared_ptr<entity::Entity> parent_);
+        Component(entity::Entity* parent_);
         virtual void Update(); // called every frame
         virtual void Awake(); // called on creation
         virtual ~Component();
     protected:
-        std::shared_ptr<entity::Entity> parent;
+        entity::Entity* parent;
     };
 }
 #ifdef EntityDefinied
