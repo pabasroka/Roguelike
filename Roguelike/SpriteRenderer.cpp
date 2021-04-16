@@ -1,4 +1,4 @@
-#include "sprite.hpp"
+#include "SpriteRenderer.hpp"
 #include "renderable.hpp"
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/Vector2.hpp>

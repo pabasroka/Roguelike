@@ -1,5 +1,5 @@
 #pragma once
-#include "renderable.hpp"
+#include "Renderable.hpp"
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/RenderStates.hpp>

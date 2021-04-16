@@ -1,4 +1,4 @@
-#include "renderable.hpp"
+#include "Renderable.hpp"
 #include <stdexcept>
 
 namespace component {

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="gameloop.cpp" />
@@ -152,13 +153,15 @@
     <ClCompile Include="korwintest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
-    <ClCompile Include="renderable.cpp" />
-    <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="SpriteAction.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="constants.hpp" />
     <ClInclude Include="Entity.hpp" />
@@ -167,8 +170,9 @@
     <ClInclude Include="korwin.hpp" />
     <ClInclude Include="korwintest.hpp" />
     <ClInclude Include="Position.hpp" />
-    <ClInclude Include="renderable.hpp" />
-    <ClInclude Include="sprite.hpp" />
+    <ClInclude Include="Renderable.hpp" />
+    <ClInclude Include="SpriteAction.hpp" />
+    <ClInclude Include="SpriteRenderer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

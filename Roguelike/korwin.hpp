@@ -1,5 +1,5 @@
 #pragma once
-#include "sprite.hpp"
+#include "SpriteRenderer.hpp"
 
 namespace component {
     namespace sprites {

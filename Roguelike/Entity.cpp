@@ -3,7 +3,6 @@
 #include <memory>
 #include <typeinfo>
 
-
 namespace entity {
     Entity::Entity(utils::Position position_) {
         position = position_;

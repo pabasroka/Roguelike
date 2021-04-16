@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace utils {
     class Position {

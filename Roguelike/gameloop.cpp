@@ -5,13 +5,30 @@
 #include <stdexcept>
 #include "korwin.hpp"
 #include "korwintest.hpp"
-#include "renderable.hpp"
+#include "Renderable.hpp"
 #include "constants.hpp"
+#include "Action.hpp"
+
+
+void move_view(sf::View& view, sf::Vector2f size, sf::Vector2f position)
+{
+    if (position.x > size.x - view.getSize().x / 2)//on the right side
+    {
+        position.x = size.x - view.getSize().x / 2;
+    }
+    if (position.x < view.getSize().x / 2)//on the left side
+    {
+        position.x = view.getSize().x / 2;
+    }
+    //same for up and down
+    //...
+    view.setCenter(position);
+}
 
 void gameloop() {
 
     // ========================== GAME WINDOW ========================== 
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "sfml plswrk");
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Rogalik");
     sf::View view;
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
@@ -23,6 +40,7 @@ void gameloop() {
 
     entity::tests::korwintest test(utils::Position(100, 100));
     auto korwinRenderer = test.GetComponent<component::Renderable>();
+    auto action = test.GetComponent<component::Action>();
 
     sf::RectangleShape s(sf::Vector2f(50.f, 50.f));
 
@@ -51,9 +69,19 @@ void gameloop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f);
 
+        view.setCenter(s.getPosition().x, s.getPosition().y);
+        //move_view(view, sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT), s.getPosition());
+
         if (viewCounter >= 15) {
             viewCounter = 0;
-            view.move(sf::Vector2f(-5.f, 0.f));
+
+            //korwinRenderer. //add korwinRenderer.Move(sf::Vector2f()) - Component::Korwin
+            actionStruct toAction = action->Move(sf::Vector2f(0, 0));
+            if (toAction.sprite == nullptr) throw std::runtime_error("nullptr on sprite!");
+            if (toAction.shape == nullptr) {
+                toAction.sprite->move(sf::Vector2f(-5.f, 5.f));
+            }
+            //view.move(sf::Vector2f(-5.f, 0.f));
         }
         else {
             viewCounter++;

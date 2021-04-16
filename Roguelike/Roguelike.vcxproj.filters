@@ -54,10 +54,10 @@
     <ClCompile Include="Position.cpp">
       <Filter>Source Files\src\utils\position</Filter>
     </ClCompile>
-    <ClCompile Include="renderable.cpp">
+    <ClCompile Include="Renderable.cpp">
       <Filter>Source Files\src\entitySystem\Components\Renderable</Filter>
     </ClCompile>
-    <ClCompile Include="sprite.cpp">
+    <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Source Files\src\entitySystem\Components\Renderable\sprite</Filter>
     </ClCompile>
     <ClCompile Include="korwin.cpp">
@@ -71,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\src\entitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAction.cpp">
+      <Filter>Source Files\src\entitySystem\Components\Renderable\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Source Files\src\entitySystem\Components\Renderable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,10 +97,10 @@
     <ClInclude Include="Position.hpp">
       <Filter>Source Files\src\utils\position</Filter>
     </ClInclude>
-    <ClInclude Include="renderable.hpp">
+    <ClInclude Include="Renderable.hpp">
       <Filter>Source Files\src\entitySystem\Components\Renderable</Filter>
     </ClInclude>
-    <ClInclude Include="sprite.hpp">
+    <ClInclude Include="SpriteRenderer.hpp">
       <Filter>Source Files\src\entitySystem\Components\Renderable\sprite</Filter>
     </ClInclude>
     <ClInclude Include="korwin.hpp">
@@ -108,6 +114,12 @@
     </ClInclude>
     <ClInclude Include="Entity.hpp">
       <Filter>Source Files\src\entitySystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAction.hpp">
+      <Filter>Source Files\src\entitySystem\Components\Renderable\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.hpp">
+      <Filter>Source Files\src\entitySystem\Components\Renderable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
