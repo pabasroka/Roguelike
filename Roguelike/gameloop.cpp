@@ -1,28 +1,37 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <stdexcept>
+#include "Component.hpp"
+#include "Entity.hpp"
+#include "EntityTags.hpp"
+#include "Position.hpp"
 #include "korwin.hpp"
 #include "korwintest.hpp"
 #include "renderable.hpp"
 #include "constants.hpp"
+#include "funcs.hpp"
 
 void gameloop() {
-
     // ========================== GAME WINDOW ========================== 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "sfml plswrk");
     sf::View view;
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
 
-    int viewCounter{};
+    int viewCounter = 0;
     
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
-    entity::tests::korwintest test(utils::Position(100, 100));
-    auto korwinRenderer = test.GetComponent<component::Renderable>();
+
+    entity::EntitySystem testScene = entity::EntitySystem();
+    testScene.addEntity(new entity::tests::korwintest(
+	utils::Position(0, 0),
+	&testScene
+    ));
 
     sf::RectangleShape s(sf::Vector2f(50.f, 50.f));
 
@@ -41,13 +50,13 @@ void gameloop() {
 
         // Simple movement mechanics
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            s.move(sf::Vector2f(5, 0.f));
+            view.move(sf::Vector2f(-5, 0.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            s.move(sf::Vector2f(-5, 0.f));
+            view.move(sf::Vector2f(5, 0.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            s.move(sf::Vector2f(0, -5.f));
+            view.move(sf::Vector2f(0, 5.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            s.move(sf::Vector2f(0, 5.f));
+            view.move(sf::Vector2f(0, -5.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f);
 
@@ -64,14 +73,37 @@ void gameloop() {
 
         // DRAWING SECTION
         window.clear();
-        renderStruct toRender = korwinRenderer->Render();
-        if (toRender.sprite == nullptr) throw std::runtime_error("nullptr on sprite!");
-        if (toRender.shader == nullptr) {
-            window.draw(*(toRender.sprite));
-        }
-        window.draw(s);
-        //window.draw(*(korwinRenderer->Render()));
-
+	for (long unsigned int i = 0; i < testScene.background.size(); i++) {
+	    print("drawing background item")
+	    auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
+	    if (toRender != nullptr) {
+		auto renderStruct = toRender->Render();
+		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
+		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+		else window.draw(*(renderStruct.sprite), renderStruct.shader);
+	    }
+	}
+	for (long unsigned int i = 0; i < testScene.normal.size(); i++) {
+	    print("drawing normal item")
+	    auto toRender = testScene.normal[i]->GetComponent<component::Renderable>();
+	    if (toRender != nullptr) {
+		auto renderStruct = toRender->Render();
+		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
+		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+		else window.draw(*(renderStruct.sprite), renderStruct.shader);
+	    }
+	}
+	for (long unsigned int i = 0; i < testScene.top.size(); i++) {
+	    print("drawing top item")
+	    auto toRender = testScene.top[i]->GetComponent<component::Renderable>();
+	    if (toRender != nullptr) {
+		auto renderStruct = toRender->Render();
+		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
+		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+		else window.draw(*(renderStruct.sprite), renderStruct.shader);
+	    }
+	}
+	print("drawing done")
         window.display();
     }
 }

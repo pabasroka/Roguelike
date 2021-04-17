@@ -4,8 +4,8 @@
 
 namespace entity {
     namespace tests {      
-            korwintest::korwintest(utils::Position position_) 
-                : entity::Entity(position_) {
+            korwintest::korwintest(utils::Position position_, const EntitySystem* scene_) 
+                : entity::Entity(position_, entityTags::enemy, scene) {
                 Initialize();
             }
             void korwintest::Initialize() {

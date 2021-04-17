@@ -1,20 +1,25 @@
 #pragma once
 
-#define EntityDefinied
+#define EntityDefined
 
-#ifdef ComponentDefined
-#else
-#include "Component.hpp"
+#ifndef ComponentDefined
+    #include "Component.hpp"
 #endif
+
 #include "Position.hpp"
+#include "EntityTags.hpp"
 #include <vector>
 #include <memory>
 
 namespace entity {
+    class EntitySystem;
     class Entity {
     public:
-        Entity(utils::Position position_);
+        Entity(
+	utils::Position position_, entityTags tag_, const EntitySystem* scene_ = nullptr);
+        entityTags tag;
         utils::Position position;
+        const EntitySystem* scene;
         std::vector<std::unique_ptr<component::Component>> components;
         template <class T>
         T* GetComponent() {
@@ -31,9 +36,13 @@ namespace entity {
                 }
             }
             return res;
-        } // returns pointer to component of type
+        }
         virtual void Initialize(); // put specific component initialization here
     protected:
     private:
     };
 }
+
+#ifndef EntitySystemDefined
+    #include "EntitySystem.hpp"
+#endif

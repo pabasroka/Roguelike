@@ -18,7 +18,6 @@ namespace component {
         entity::Entity* parent;
     };
 }
-#ifdef EntityDefinied
-#else
-#include "Entity.hpp"
+#ifndef EntityDefined
+    #include "Entity.hpp"
 #endif

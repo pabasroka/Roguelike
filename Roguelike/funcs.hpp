@@ -4,3 +4,9 @@
             dynamic_cast<component::Component*>( \
               new component::sprites::name( \
                   dynamic_cast<entity::Entity*>(this))))); 
+
+#include <iostream>
+
+#define print(var) std::cout << var << std::endl;
+
+#define elif else if

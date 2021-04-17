@@ -373,3 +373,6 @@ vgcore.*
 # vs code stuff
 
 *.vscode-ctags
+
+# built from make
+main
