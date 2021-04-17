@@ -5,6 +5,8 @@
               new component::sprites::name( \
                   dynamic_cast<entity::Entity*>(this))))); 
 
-#define add_Entity_normal(system, entity) system.normal.push_back( \
-  std::shared_ptr<entity::Entity>(new entity)); \
+#include <iostream>
 
+#define print(var) std::cout << var << std::endl;
+
+#define elif else if
