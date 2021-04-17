@@ -11,7 +11,7 @@ namespace component {
     class SpriteRenderer : public component::Renderable {
     public:
         SpriteRenderer(entity::Entity* parent_);
-        void Awake();
+        void Awake() override;
         virtual void Initialize(); // set texture here
         renderStruct Render() override;
     protected:

@@ -33,7 +33,6 @@ void gameloop() {
 	&testScene
     ));
 
-    sf::RectangleShape s(sf::Vector2f(50.f, 50.f));
 
 
     // ========================== GAME LOOP ========================== 
@@ -60,14 +59,6 @@ void gameloop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f);
 
-        if (viewCounter >= 15) {
-            viewCounter = 0;
-            view.move(sf::Vector2f(-5.f, 0.f));
-        }
-        else {
-            viewCounter++;
-        }
- 
         // Refresh view
         window.setView(view);
 

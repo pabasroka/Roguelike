@@ -1,9 +1,10 @@
 #pragma once
-#include "sprite.hpp"
+#include "Component.hpp"
+#include "shadedSprite.hpp"
 
 namespace component {
     namespace sprites {
-        class korwin : public component::SpriteRenderer {
+        class korwin : public component::ShadedSpriteRenderer {
         public:
             korwin(entity::Entity* parent_);
             void Initialize();
