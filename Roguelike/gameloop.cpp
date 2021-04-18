@@ -21,10 +21,7 @@ void gameloop() {
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
 
-    int viewCounter = 0;
-    
     window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(60);
 
 
     entity::EntitySystem testScene = entity::EntitySystem();
@@ -43,11 +40,15 @@ void gameloop() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) 
                 window.close();
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                window.close();
+            if (event.type == sf::Event::EventType::Resized) {
+                auto windowSize = window.getSize();
+                view.setSize((float) windowSize.x, (float) windowSize.y);
+            }
         }
 
         // Simple movement mechanics
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            window.close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             view.move(sf::Vector2f(-5, 0.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -64,37 +65,33 @@ void gameloop() {
 
         // DRAWING SECTION
         window.clear();
-	for (long unsigned int i = 0; i < testScene.background.size(); i++) {
-	    print("drawing background item")
-	    auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
-	    if (toRender != nullptr) {
-		auto renderStruct = toRender->Render();
-		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
-		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-		else window.draw(*(renderStruct.sprite), renderStruct.shader);
-	    }
-	}
-	for (long unsigned int i = 0; i < testScene.normal.size(); i++) {
-	    print("drawing normal item")
-	    auto toRender = testScene.normal[i]->GetComponent<component::Renderable>();
-	    if (toRender != nullptr) {
-		auto renderStruct = toRender->Render();
-		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
-		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-		else window.draw(*(renderStruct.sprite), renderStruct.shader);
-	    }
-	}
-	for (long unsigned int i = 0; i < testScene.top.size(); i++) {
-	    print("drawing top item")
-	    auto toRender = testScene.top[i]->GetComponent<component::Renderable>();
-	    if (toRender != nullptr) {
-		auto renderStruct = toRender->Render();
-		if (renderStruct.sprite == nullptr) throw std::runtime_error("Nullptr in background render");
-		if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-		else window.draw(*(renderStruct.sprite), renderStruct.shader);
-	    }
-	}
-	print("drawing done")
+        for (long unsigned int i = 0; i < testScene.background.size(); i++) {
+            auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
+            if (toRender != nullptr) {
+                auto renderStruct = toRender->Render();
+                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+            }
+        }
+        for (long unsigned int i = 0; i < testScene.normal.size(); i++) {
+            auto toRender = testScene.normal[i]->GetComponent<component::Renderable>();
+            if (toRender != nullptr) {
+                auto renderStruct = toRender->Render();
+                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+            }
+        }
+        for (long unsigned int i = 0; i < testScene.top.size(); i++) {
+            auto toRender = testScene.top[i]->GetComponent<component::Renderable>();
+            if (toRender != nullptr) {
+                auto renderStruct = toRender->Render();
+                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
+                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+            }
+        }
         window.display();
     }
 }

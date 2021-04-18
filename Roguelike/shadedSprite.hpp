@@ -7,12 +7,12 @@
 namespace component {
     class ShadedSpriteRenderer : public component::SpriteRenderer {
     public:
-	ShadedSpriteRenderer(entity::Entity* parent_);
-	void Awake() override;
-	renderStruct Render() override;
+        ShadedSpriteRenderer(entity::Entity* parent_);
+        void Awake() override;
+        renderStruct Render() override;
     protected:
-	sf::Shader shader;
+        sf::Shader shader;
     private:
-	float renderCount;
+        float renderCount;
     };
 }

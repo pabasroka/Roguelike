@@ -3,21 +3,22 @@
 #include "Entity.hpp"
 #include "renderable.hpp"
 #include <SFML/Graphics/Shader.hpp>
+#include "funcs.hpp"
 
 namespace component {
     ShadedSpriteRenderer::ShadedSpriteRenderer(
-	entity::Entity* parent_
+        entity::Entity* parent_
     ) : component::SpriteRenderer(parent_) {
-	renderCount = 0;
+        renderCount = 0;
     }
     void ShadedSpriteRenderer::Awake() {
-	Initialize();
+        Initialize();
     }
     renderStruct ShadedSpriteRenderer::Render() {
-	shader.setUniform("texture", sf::Shader::CurrentTexture);
-	shader.setUniform("renderCount", renderCount);
-	renderCount += 0.1;
-	return {&sprite, &shader};
+        shader.setUniform("texture", sf::Shader::CurrentTexture);
+        shader.setUniform("renderCount", renderCount);
+        renderCount += 0.1;
+        return {&sprite, &shader};
     }
 
 }
