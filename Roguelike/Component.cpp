@@ -1,4 +1,5 @@
 #include "Component.hpp"
+#include "funcs.hpp"
 
 namespace component {
     Component::Component(entity::Entity* parent_) {

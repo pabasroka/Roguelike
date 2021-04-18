@@ -56,11 +56,11 @@ void gameloop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             korwin.lock()->position.xy -= sf::Vector2f(-5, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            view.move(sf::Vector2f(5, 0.f));
+            korwin.lock()->position.xy += sf::Vector2f(-5, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            view.move(sf::Vector2f(0, 5.f));
+            korwin.lock()->position.xy -= sf::Vector2f(0, 5.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            view.move(sf::Vector2f(0, -5.f));
+            korwin.lock()->position.xy += sf::Vector2f(0, 5.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f);
 
@@ -72,6 +72,7 @@ void gameloop() {
 
         // DRAWING SECTION
         window.clear();
+        print("Drawing!")
         for (long unsigned int i = 0; i < testScene.background.size(); i++) {
             auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {

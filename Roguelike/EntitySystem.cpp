@@ -14,6 +14,9 @@ namespace entity {
     }
     std::weak_ptr<Entity> EntitySystem::addEntity(Entity* entity, layers layer) {
         auto entityRef = std::shared_ptr<Entity>(entity);
+        for (unsigned long int i = 0; i < entityRef->components.size(); i++) {
+            entityRef->components[i]->Awake();
+        }
         if (layer == layers::normal) normal.push_back(entityRef);
         elif (layer == layers::back) background.push_back(entityRef);
         else top.push_back(entityRef);
@@ -32,8 +35,8 @@ namespace entity {
                 entity->components[j]->Update();
             }
         }
-        for (unsigned long int i = 0; i < normal.size(); i++) {
-            auto entity = normal[i];
+        for (unsigned long int i = 0; i < top.size(); i++) {
+            auto entity = top[i];
             for (unsigned long int j = 0; j < entity->components.size(); j++) {
                 entity->components[j]->Update();
             }

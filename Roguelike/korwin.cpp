@@ -7,7 +7,6 @@ namespace component {
         korwin::korwin(
             entity::Entity* parent_
         ) :component::ShadedSpriteRenderer(parent_) {
-            Initialize();
         }
 
         void korwin::Initialize() {
@@ -20,7 +19,6 @@ namespace component {
             sf::FloatRect spriteSize = sprite.getGlobalBounds();
             sprite.setOrigin(spriteSize.width / 2., spriteSize.height / 2.);
             sprite.setTexture(texture);
-            std::cout << "loaded korWIN" << std::endl;
         }
     }
 }
