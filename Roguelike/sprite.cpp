@@ -11,6 +11,7 @@ namespace component {
         Initialize();
     }
     renderStruct SpriteRenderer::Render() {
+        sprite.setPosition(parent->position.xy);
         return renderStruct {&sprite, nullptr};
     }
     void SpriteRenderer::Initialize() {}

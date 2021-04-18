@@ -24,9 +24,9 @@ namespace entity {
             // returns first entity in normal with tag
             std::vector<std::weak_ptr<Entity>> GetEntitiesByTag(entityTags tag);
             // returns all entities in normal with tag
-	    void doUpdateTick();
-	    std::weak_ptr<Entity> addEntity(Entity* entity, layers layer = layers::normal);
-	    // Add entity to scene
-	    // use with new operator 
+            void doUpdateTick();
+            std::weak_ptr<Entity> addEntity(Entity* entity, layers layer = layers::normal);
+            // Add entity to scene
+            // use with new operator 
     };
 }

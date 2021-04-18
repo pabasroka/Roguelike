@@ -18,6 +18,7 @@ namespace component {
         shader.setUniform("texture", sf::Shader::CurrentTexture);
         shader.setUniform("renderCount", renderCount);
         renderCount += 0.1;
+        sprite.setPosition(parent->position.xy);
         return {&sprite, &shader};
     }
 

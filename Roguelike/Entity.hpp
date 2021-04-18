@@ -16,7 +16,10 @@ namespace entity {
     class Entity {
     public:
         Entity(
-	utils::Position position_, entityTags tag_, const EntitySystem* scene_ = nullptr);
+            utils::Position position_, 
+            entityTags tag_, 
+            const EntitySystem* scene_ = nullptr
+        );
         entityTags tag;
         utils::Position position;
         const EntitySystem* scene;

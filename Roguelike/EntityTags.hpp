@@ -4,7 +4,6 @@ namespace entity {
     enum entityTags {
         test,
         enemy,
-        player,
-        background
+        player
     };
 }

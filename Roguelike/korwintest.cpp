@@ -9,7 +9,7 @@ namespace entity {
                 Initialize();
             }
             void korwintest::Initialize() {
-                add_component(korwin);
+                add_component(component::sprites::korwin);
             }
     }
 }

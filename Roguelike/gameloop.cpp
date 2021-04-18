@@ -25,9 +25,13 @@ void gameloop() {
 
 
     entity::EntitySystem testScene = entity::EntitySystem();
+    auto korwin = testScene.addEntity(new entity::tests::korwintest(
+        utils::Position(0, 0),
+        &testScene
+    ));
     testScene.addEntity(new entity::tests::korwintest(
-	utils::Position(0, 0),
-	&testScene
+        utils::Position(0, 0),
+        &testScene
     ));
 
 
@@ -50,7 +54,7 @@ void gameloop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window.close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            view.move(sf::Vector2f(-5, 0.f));
+            korwin.lock()->position.xy -= sf::Vector2f(-5, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             view.move(sf::Vector2f(5, 0.f));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -62,6 +66,9 @@ void gameloop() {
 
         // Refresh view
         window.setView(view);
+
+        // do Update() tick;
+        testScene.doUpdateTick();
 
         // DRAWING SECTION
         window.clear();
