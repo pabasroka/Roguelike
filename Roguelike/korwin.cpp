@@ -16,9 +16,9 @@ namespace component {
                     sf::Shader::Fragment),
                 "korwin failed to load shader");
             texture.setSmooth(true);
+            sprite.setTexture(texture);
             sf::FloatRect spriteSize = sprite.getGlobalBounds();
             sprite.setOrigin(spriteSize.width / 2., spriteSize.height / 2.);
-            sprite.setTexture(texture);
         }
     }
 }

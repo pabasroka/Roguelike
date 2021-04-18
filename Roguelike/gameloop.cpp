@@ -13,6 +13,7 @@
 #include "renderable.hpp"
 #include "constants.hpp"
 #include "funcs.hpp"
+#include "player.hpp"
 
 void gameloop() {
     // ========================== GAME WINDOW ========================== 
@@ -25,16 +26,23 @@ void gameloop() {
 
 
     entity::EntitySystem testScene = entity::EntitySystem();
-    auto korwin = testScene.addEntity(new entity::tests::korwintest(
-        utils::Position(0, 0),
+    testScene.addEntity(new entity::tests::korwintest(
+        utils::Position(300, 0),
         &testScene
     ));
     testScene.addEntity(new entity::tests::korwintest(
         utils::Position(0, 0),
         &testScene
     ));
+    testScene.addEntity(new entity::playerEntity(
+        utils::Position(1, 1),
+        &testScene
+    )); 
 
-
+    // print number of enemies: should be 2
+    print(testScene.GetEntitiesByTag(entity::entityTags::enemy).size());
+    print(testScene.GetEntitiesByTag(entity::entityTags::player).size());
+    auto player = testScene.GetEntityByTag(entity::entityTags::player);
 
     // ========================== GAME LOOP ========================== 
     while (window.isOpen()) {
@@ -54,25 +62,26 @@ void gameloop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window.close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            korwin.lock()->position.xy -= sf::Vector2f(-5, 0.f);
+            player.lock()->position.xy -= sf::Vector2f(-5, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            korwin.lock()->position.xy += sf::Vector2f(-5, 0.f);
+            player.lock()->position.xy += sf::Vector2f(-5, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            korwin.lock()->position.xy -= sf::Vector2f(0, 5.f);
+            player.lock()->position.xy -= sf::Vector2f(0, 5.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            korwin.lock()->position.xy += sf::Vector2f(0, 5.f);
+            player.lock()->position.xy += sf::Vector2f(0, 5.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f);
 
         // Refresh view
+        view.setCenter(player.lock()->position.xy);
         window.setView(view);
+
 
         // do Update() tick;
         testScene.doUpdateTick();
 
         // DRAWING SECTION
         window.clear();
-        print("Drawing!")
         for (long unsigned int i = 0; i < testScene.background.size(); i++) {
             auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {

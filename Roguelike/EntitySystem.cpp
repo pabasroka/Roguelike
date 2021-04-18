@@ -42,4 +42,24 @@ namespace entity {
             }
         }
     }
+    std::weak_ptr<Entity> EntitySystem::GetEntityByTag(entityTags tag) {
+        std::weak_ptr<Entity> res = std::weak_ptr<Entity>(std::shared_ptr<Entity>(nullptr));
+        for (unsigned long int i = 0; i < normal.size(); i++) {
+            if (normal[i]->tag == tag){
+                res = std::weak_ptr<Entity>(normal[i]);
+                break;
+            }
+        }
+        return res;
+    }
+
+    std::vector<std::weak_ptr<Entity>> EntitySystem::GetEntitiesByTag(entityTags tag) {
+        auto resultVec = std::vector<std::weak_ptr<Entity>>();
+        for (unsigned long int i = 0; i < normal.size(); i++) {
+            if (normal[i]->tag == tag){
+                resultVec.push_back(normal[i]);
+            }
+        }
+        return resultVec;
+    }
 }
