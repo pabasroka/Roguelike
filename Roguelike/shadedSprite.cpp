@@ -17,7 +17,7 @@ namespace component {
     renderStruct ShadedSpriteRenderer::Render() {
         shader.setUniform("texture", sf::Shader::CurrentTexture);
         shader.setUniform("renderCount", renderCount);
-        renderCount += 0.1;
+        renderCount += 0.01;
         sprite.setPosition(parent->position.xy);
         return {&sprite, &shader};
     }

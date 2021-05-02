@@ -3,11 +3,12 @@
 #include "Component.hpp"
 #include "Entity.hpp"
 #include "Position.hpp"
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 struct renderStruct {
-    sf::Sprite* sprite;
+    sf::Drawable* drawable;
     sf::Shader* shader;
 };
 

@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include "Component.hpp"
 #include "Entity.hpp"
+#include "EntitySystem.hpp"
 #include "EntityTags.hpp"
 #include "Position.hpp"
 #include "korwin.hpp"
@@ -14,6 +15,8 @@
 #include "constants.hpp"
 #include "funcs.hpp"
 #include "player.hpp"
+#include "backgroundEntity.hpp"
+#include "shadedBackground.hpp"
 
 void gameloop() {
     // ========================== GAME WINDOW ========================== 
@@ -24,8 +27,11 @@ void gameloop() {
 
     window.setVerticalSyncEnabled(true);
 
-
     entity::EntitySystem testScene = entity::EntitySystem();
+    // setup background
+    testScene.addEntity(new entity::background(
+        &testScene
+    ), entity::layers::back).lock()->GetComponent<component::shadedBackground>()->setView(&window);
     testScene.addEntity(new entity::tests::korwintest(
         utils::Position(300, 0),
         &testScene
@@ -37,7 +43,7 @@ void gameloop() {
     testScene.addEntity(new entity::playerEntity(
         utils::Position(1, 1),
         &testScene
-    )); 
+    ));
 
     // print number of enemies: should be 2
     print(testScene.GetEntitiesByTag(entity::entityTags::enemy).size());
@@ -55,6 +61,7 @@ void gameloop() {
             if (event.type == sf::Event::EventType::Resized) {
                 auto windowSize = window.getSize();
                 view.setSize((float) windowSize.x, (float) windowSize.y);
+                print("Window size changed!")
             }
         }
 
@@ -86,27 +93,27 @@ void gameloop() {
             auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
-                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
+                else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }
         }
         for (long unsigned int i = 0; i < testScene.normal.size(); i++) {
             auto toRender = testScene.normal[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
-                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
+                else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }
         }
         for (long unsigned int i = 0; i < testScene.top.size(); i++) {
             auto toRender = testScene.top[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.sprite == nullptr, "Nullptr in background render");
-                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.sprite));
-                else window.draw(*(renderStruct.sprite), renderStruct.shader);
+                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
+                else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }
         }
         window.display();
