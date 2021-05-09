@@ -41,6 +41,7 @@ namespace entity {
             return res;
         }
         virtual void Initialize(); // put specific component initialization here
+        virtual void LateInitialize(); // called after Awake on components
     protected:
     private:
     };

@@ -4,7 +4,7 @@ OBJFILES = $(CFILES:.c=.o) $(CPPFILES:.cpp=.o)
 OUT      = main
 
 LOADLIBES = -lm -lsfml-graphics -lsfml-window -lsfml-system -lbox2d
-CXXFLAGS = -Wall -O2 -g
+CXXFLAGS = -Wall -O2 -g -fPIC
 
 CC = g++
 

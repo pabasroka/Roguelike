@@ -14,8 +14,8 @@ namespace component {
             shader.setUniform("renderCount", renderCounter);
         }
         void korwin::Initialize() {
-            assert(!texture.loadFromFile("resources/test.png"), "korwin failed to load texture");
-            assert(!shader.loadFromFile(
+            assertCond(!texture.loadFromFile("resources/test.png"), "korwin failed to load texture");
+            assertCond(!shader.loadFromFile(
                     "resources/shaders/testFrag.frag", 
                     sf::Shader::Fragment),
                 "korwin failed to load shader");

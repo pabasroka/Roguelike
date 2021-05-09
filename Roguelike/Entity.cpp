@@ -15,4 +15,5 @@ namespace entity {
         Initialize();
     }
     void Entity::Initialize() {}
+    void Entity::LateInitialize() {}
 }

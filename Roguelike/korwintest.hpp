@@ -8,6 +8,7 @@ namespace entity {
         public:
             korwintest(utils::Position position_, const EntitySystem* scene_ = nullptr);
             void Initialize();
+            void LateInitialize();
         };
     }
 }

@@ -3,6 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <box2d/b2_math.h>
 #include <stdexcept>
 #include <chrono>
 #include "Component.hpp"
@@ -19,6 +20,9 @@
 #include "backgroundEntity.hpp"
 #include "shadedBackground.hpp"
 #include "testEntity.hpp"
+#include "physicsBody.hpp"
+
+#define playerSpeed .1
 
 void gameloop() {
     // Setup clock for measuring frametimes
@@ -28,7 +32,6 @@ void gameloop() {
     sf::View view;
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
-    
     window.setVerticalSyncEnabled(true);
 
     entity::EntitySystem testScene = entity::EntitySystem();
@@ -43,7 +46,7 @@ void gameloop() {
     ));
     // add 2x korwin
     testScene.addEntity(new entity::tests::korwintest(
-        utils::Position(300, 0),
+        utils::Position(600, 0),
         &testScene
     ));
     testScene.addEntity(new entity::tests::korwintest(
@@ -81,18 +84,27 @@ void gameloop() {
         double normalFpsDeviation = (1./60.) / timeSinceLastFrame.count();
 
         // Simple movement mechanics
+        b2Vec2 playerForce {0, 0};
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window.close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            player.lock()->position.xy -= sf::Vector2f(-5 / normalFpsDeviation, 0.f);
+            playerForce.x += 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            player.lock()->position.xy += sf::Vector2f(-5 / normalFpsDeviation, 0.f);
+            playerForce.x -= 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            player.lock()->position.xy -= sf::Vector2f(0, 5.f / normalFpsDeviation);
+            playerForce.y -= 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            player.lock()->position.xy += sf::Vector2f(0, 5.f / normalFpsDeviation);
+            playerForce.y += 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
             view.rotate(15.f / normalFpsDeviation);
+
+        if (playerForce.Length() > 0) {
+            auto playerPhys = player.lock()->GetComponent<component::PhysicsBody>();
+            playerForce.Normalize();
+            playerForce.x *= playerSpeed;
+            playerForce.y *= playerSpeed;
+            playerPhys->body->ApplyForceToCenter(playerForce, true);
+        }
 
         // Refresh view
         view.setCenter(player.lock()->position.xy);
@@ -107,7 +119,7 @@ void gameloop() {
             auto toRender = testScene.background[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                assertCond(renderStruct.drawable == nullptr, "Nullptr in background render");
                 if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
                 else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }
@@ -116,7 +128,7 @@ void gameloop() {
             auto toRender = testScene.normal[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                assertCond(renderStruct.drawable == nullptr, "Nullptr in background render");
                 if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
                 else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }
@@ -125,7 +137,7 @@ void gameloop() {
             auto toRender = testScene.top[i]->GetComponent<component::Renderable>();
             if (toRender != nullptr) {
                 auto renderStruct = toRender->Render();
-                assert(renderStruct.drawable == nullptr, "Nullptr in background render");
+                assertCond(renderStruct.drawable == nullptr, "Nullptr in background render");
                 if (renderStruct.shader == nullptr) window.draw(*(renderStruct.drawable));
                 else window.draw(*(renderStruct.drawable), renderStruct.shader);
             }

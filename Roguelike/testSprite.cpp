@@ -10,7 +10,7 @@ namespace component {
             : component::SpriteRenderer(parent_){}
 
         void testSprite::Initialize() {
-            assert(!texture.loadFromFile("resources/dev test.png"), "player failed to load texture");
+            assertCond(!texture.loadFromFile("resources/dev test.png"), "player failed to load texture");
             texture.setSmooth(true);
             sprite.setTexture(texture);
             sprite.setScale(sf::Vector2f(.4, .4));

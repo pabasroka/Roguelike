@@ -13,4 +13,6 @@ namespace entity {
     void background::Initialize() {
         add_component(component::shadedBackground);
     }
+
+    void background::LateInitialize() {}
 }

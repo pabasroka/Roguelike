@@ -9,5 +9,6 @@ namespace entity {
     public:
         background(const EntitySystem* scene_ = nullptr);
         void Initialize();
+        void LateInitialize();
     };
 }

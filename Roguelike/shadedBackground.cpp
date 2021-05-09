@@ -19,7 +19,7 @@ namespace component {
     }
 
     void shadedBackground::initialize() {
-        assert(!shader.loadFromFile(
+        assertCond(!shader.loadFromFile(
             "resources/shaders/background.frag",
             sf::Shader::Fragment
         ), "failed to load background shader");
@@ -28,7 +28,7 @@ namespace component {
         windowref = dynamic_cast<sf::RenderWindow*>(window);
     }
     renderStruct shadedBackground::Render() {
-        assert(windowref == nullptr, "windowref is not set!");
+        assertCond(windowref == nullptr, "windowref is not set!");
         auto windowSize = sf::Vector2f(windowref->getSize());
         renderTarget.setTextureRect(sf::IntRect(0, 0, windowSize.x, windowSize.y));
         renderTarget.setSize(windowSize);
@@ -36,7 +36,6 @@ namespace component {
             0, 0
         )));
         auto position = windowref->getView().getCenter();
-
         shader.setUniform("pos", sf::Vector2f(position.x - windowSize.x / 2,  position.y - windowSize.y / 2));
         shader.setUniform("size", windowSize);
         return renderStruct {&renderTarget, &shader};

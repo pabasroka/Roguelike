@@ -7,18 +7,20 @@
 #endif
 #include <memory>
 #include <vector>
+#include <box2d/b2_world.h>
 
 namespace entity {
     enum layers {
-	back,
-	normal,
-	top
+        back,
+        normal,
+        top
     };
     class EntitySystem {
         public:
             std::vector<std::shared_ptr<Entity>> background;
             std::vector<std::shared_ptr<Entity>> normal;
             std::vector<std::shared_ptr<Entity>> top;
+            std::shared_ptr<b2World> physicsWorld;
             EntitySystem();
             std::weak_ptr<Entity> GetEntityByTag(entityTags tag);
             // returns first entity in normal with tag
@@ -27,6 +29,7 @@ namespace entity {
             void doUpdateTick();
             void doFixedUpdateTick(double timeDelta);
             std::weak_ptr<Entity> addEntity(Entity* entity, layers layer = layers::normal);
+            virtual ~EntitySystem();
             // Add entity to scene
             // use with new operator 
     };

@@ -9,7 +9,7 @@ namespace component {
             : component::SpriteRenderer(parent_){}
 
         void player::Initialize() {
-            assert(!texture.loadFromFile("resources/antifachad.png"), "player failed to load texture");
+            assertCond(!texture.loadFromFile("resources/antifachad.png"), "player failed to load texture");
             texture.setSmooth(true);
             sprite.setTexture(texture);
             sf::FloatRect spriteSize = sprite.getGlobalBounds();

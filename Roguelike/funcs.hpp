@@ -10,10 +10,12 @@
 
 #define print(var) std::cerr << __FILE__ << ":" << __LINE__ << "\t" << #var << " -> \t" << var << std::endl;
 
-#define assert(condition, msg) if(condition) { \
+#define assertCond(condition, msg) if(condition) { \
     std::cerr << "ASSERTION: " << __FILE__ << ":" << __LINE__ << "\t->\t" << #condition << std::endl; \
     throw std::runtime_error(msg); \
 }
 
 #define elif else if
 
+#define sf2box(vec) b2Vec2(vec.x / 1000, vec.y / 1000)
+#define box2sf(vec) sf::Vector2f(vec.x * 1000, vec.y * 1000)
