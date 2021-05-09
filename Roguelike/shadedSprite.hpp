@@ -12,7 +12,5 @@ namespace component {
         renderStruct Render() override;
     protected:
         sf::Shader shader;
-    private:
-        float renderCount;
     };
 }

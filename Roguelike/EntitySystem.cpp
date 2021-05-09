@@ -42,6 +42,26 @@ namespace entity {
             }
         }
     }
+    void EntitySystem::doFixedUpdateTick(double timeDelta) {
+        for (unsigned long int i = 0; i < background.size(); i++) {
+            auto entity = background[i];
+            for (unsigned long int j = 0; j < entity->components.size(); j++) {
+                entity->components[j]->FixedUpdate(timeDelta);
+            }
+        }
+        for (unsigned long int i = 0; i < normal.size(); i++) {
+            auto entity = normal[i];
+            for (unsigned long int j = 0; j < entity->components.size(); j++) {
+                entity->components[j]->FixedUpdate(timeDelta);
+            }
+        }
+        for (unsigned long int i = 0; i < top.size(); i++) {
+            auto entity = top[i];
+            for (unsigned long int j = 0; j < entity->components.size(); j++) {
+                entity->components[j]->FixedUpdate(timeDelta);
+            }
+        }
+    }
     std::weak_ptr<Entity> EntitySystem::GetEntityByTag(entityTags tag) {
         std::weak_ptr<Entity> res = std::weak_ptr<Entity>(std::shared_ptr<Entity>(nullptr));
         for (unsigned long int i = 0; i < normal.size(); i++) {

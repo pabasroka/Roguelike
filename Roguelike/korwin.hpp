@@ -8,6 +8,9 @@ namespace component {
         public:
             korwin(entity::Entity* parent_);
             void Initialize();
+            void FixedUpdate(double timeDelta);
+        private: 
+            float renderCounter;
         };
     }
 }

@@ -8,6 +8,7 @@ namespace component {
     Component::~Component() {
 
     }
-    void Component::Update() {}
     void Component::Awake() {}
+    void Component::Update() {}
+    void Component::FixedUpdate(double timeDelta) {}
 }

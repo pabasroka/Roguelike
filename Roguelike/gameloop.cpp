@@ -4,6 +4,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <stdexcept>
+#include <chrono>
 #include "Component.hpp"
 #include "Entity.hpp"
 #include "EntitySystem.hpp"
@@ -17,14 +18,17 @@
 #include "player.hpp"
 #include "backgroundEntity.hpp"
 #include "shadedBackground.hpp"
+#include "testEntity.hpp"
 
 void gameloop() {
+    // Setup clock for measuring frametimes
+    auto lastTime = std::chrono::steady_clock::now();
     // ========================== GAME WINDOW ========================== 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "sfml plswrk");
     sf::View view;
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
-
+    
     window.setVerticalSyncEnabled(true);
 
     entity::EntitySystem testScene = entity::EntitySystem();
@@ -32,6 +36,12 @@ void gameloop() {
     testScene.addEntity(new entity::background(
         &testScene
     ), entity::layers::back).lock()->GetComponent<component::shadedBackground>()->setView(&window);
+    // add test dev entity
+    testScene.addEntity(new entity::testEntity(
+        utils::Position(600, 600),
+        &testScene
+    ));
+    // add 2x korwin
     testScene.addEntity(new entity::tests::korwintest(
         utils::Position(300, 0),
         &testScene
@@ -40,14 +50,13 @@ void gameloop() {
         utils::Position(0, 0),
         &testScene
     ));
+    // add player entity
     testScene.addEntity(new entity::playerEntity(
         utils::Position(1, 1),
         &testScene
     ));
-
-    // print number of enemies: should be 2
-    print(testScene.GetEntitiesByTag(entity::entityTags::enemy).size());
-    print(testScene.GetEntitiesByTag(entity::entityTags::player).size());
+    
+    // get refrance to player
     auto player = testScene.GetEntityByTag(entity::entityTags::player);
 
     // ========================== GAME LOOP ========================== 
@@ -64,28 +73,33 @@ void gameloop() {
                 print("Window size changed!")
             }
         }
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<double> timeSinceLastFrame = now - lastTime;
+        // print fps
+        print(1.0 / timeSinceLastFrame.count());
+        lastTime = now;
+        double normalFpsDeviation = (1./60.) / timeSinceLastFrame.count();
 
         // Simple movement mechanics
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window.close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            player.lock()->position.xy -= sf::Vector2f(-5, 0.f);
+            player.lock()->position.xy -= sf::Vector2f(-5 / normalFpsDeviation, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            player.lock()->position.xy += sf::Vector2f(-5, 0.f);
+            player.lock()->position.xy += sf::Vector2f(-5 / normalFpsDeviation, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            player.lock()->position.xy -= sf::Vector2f(0, 5.f);
+            player.lock()->position.xy -= sf::Vector2f(0, 5.f / normalFpsDeviation);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            player.lock()->position.xy += sf::Vector2f(0, 5.f);
+            player.lock()->position.xy += sf::Vector2f(0, 5.f / normalFpsDeviation);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            view.rotate(15.f);
+            view.rotate(15.f / normalFpsDeviation);
 
         // Refresh view
         view.setCenter(player.lock()->position.xy);
         window.setView(view);
-
-
         // do Update() tick;
         testScene.doUpdateTick();
+        testScene.doFixedUpdateTick(timeSinceLastFrame.count());
 
         // DRAWING SECTION
         window.clear();

@@ -3,7 +3,7 @@ CPPFILES = $(wildcard *.cpp)
 OBJFILES = $(CFILES:.c=.o) $(CPPFILES:.cpp=.o)
 OUT      = main
 
-LOADLIBES = -lm -lsfml-graphics -lsfml-window -lsfml-system
+LOADLIBES = -lm -lsfml-graphics -lsfml-window -lsfml-system -lbox2d
 CXXFLAGS = -Wall -O2 -g
 
 CC = g++

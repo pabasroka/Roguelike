@@ -7,8 +7,12 @@ namespace component {
         korwin::korwin(
             entity::Entity* parent_
         ) :component::ShadedSpriteRenderer(parent_) {
+            renderCounter = 0;
         }
-
+        void korwin::FixedUpdate(double timeDelta) {
+            renderCounter += timeDelta * 5;
+            shader.setUniform("renderCount", renderCounter);
+        }
         void korwin::Initialize() {
             assert(!texture.loadFromFile("resources/test.png"), "korwin failed to load texture");
             assert(!shader.loadFromFile(

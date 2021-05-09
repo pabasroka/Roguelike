@@ -25,6 +25,7 @@ namespace entity {
             std::vector<std::weak_ptr<Entity>> GetEntitiesByTag(entityTags tag);
             // returns all entities in normal with tag
             void doUpdateTick();
+            void doFixedUpdateTick(double timeDelta);
             std::weak_ptr<Entity> addEntity(Entity* entity, layers layer = layers::normal);
             // Add entity to scene
             // use with new operator 
