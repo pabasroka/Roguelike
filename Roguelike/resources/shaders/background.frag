@@ -12,5 +12,9 @@ void main() {
     if (coord.y > 100. || coord.y < -100.) {
         color.g = .5;
     }
+    if (mod(coord.x, 1000.0) < 10. || mod(coord.y, 1000.0) < 10.) {
+        color.b = 1.0;
+    }
+
     gl_FragColor = vec4(color, 1.0);
 }

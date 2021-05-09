@@ -41,12 +41,12 @@ void gameloop() {
     ), entity::layers::back).lock()->GetComponent<component::shadedBackground>()->setView(&window);
     // add test dev entity
     testScene.addEntity(new entity::testEntity(
-        utils::Position(600, 600),
+        utils::Position(0, 600),
         &testScene
     ));
     // add 2x korwin
-    testScene.addEntity(new entity::tests::korwintest(
-        utils::Position(600, 0),
+    auto thatKoriwn = testScene.addEntity(new entity::tests::korwintest(
+        utils::Position(6, 0),
         &testScene
     ));
     testScene.addEntity(new entity::tests::korwintest(
@@ -64,7 +64,6 @@ void gameloop() {
 
     // ========================== GAME LOOP ========================== 
     while (window.isOpen()) {
-
         // EVENTS
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -79,9 +78,10 @@ void gameloop() {
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<double> timeSinceLastFrame = now - lastTime;
         // print fps
-        print(1.0 / timeSinceLastFrame.count());
+        std::cout << "fps: " << 1.0 / timeSinceLastFrame.count() << "\r"; 
+        std::cout.flush();
         lastTime = now;
-        double normalFpsDeviation = (1./60.) / timeSinceLastFrame.count();
+        //double normalFpsDeviation = (1./60.) / timeSinceLastFrame.count();
 
         // Simple movement mechanics
         b2Vec2 playerForce {0, 0};
@@ -95,9 +95,8 @@ void gameloop() {
             playerForce.y -= 1;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             playerForce.y += 1;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            view.rotate(15.f / normalFpsDeviation);
 
+        // if player wants movement, give him movement
         if (playerForce.Length() > 0) {
             auto playerPhys = player.lock()->GetComponent<component::PhysicsBody>();
             playerForce.Normalize();

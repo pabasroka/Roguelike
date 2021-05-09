@@ -4,6 +4,7 @@
 #include <box2d/b2_body.h>
 #include <box2d/box2d.h>
 #include "funcs.hpp"
+#include "constants.hpp"
 
 namespace component {
     PhysicsBody::PhysicsBody(entity::Entity* parent_) : component::Component(parent_) {
@@ -16,7 +17,7 @@ namespace component {
     void PhysicsBody::Awake() {
         assertCond(world == nullptr, "b2World is not set!");
         bodyDef.type = b2_dynamicBody;
-        bodyDef.position.Set(parent->position.xy.x, parent->position.xy.y);
+        bodyDef.position.Set(parent->position.xy.x / box2sfRatio, parent->position.xy.y / box2sfRatio);
         body = world->CreateBody(&bodyDef);
         shape.SetAsBox(.1, .1);
         fixture.shape = &shape;
