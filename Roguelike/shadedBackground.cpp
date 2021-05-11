@@ -15,10 +15,10 @@ namespace component {
         windowref = nullptr;
     }
     void shadedBackground::Awake() {
-        initialize();
+        Initialize();
     }
 
-    void shadedBackground::initialize() {
+    void shadedBackground::Initialize() {
         assertCond(!shader.loadFromFile(
             "resources/shaders/background.frag",
             sf::Shader::Fragment
@@ -28,15 +28,20 @@ namespace component {
         windowref = dynamic_cast<sf::RenderWindow*>(window);
     }
     renderStruct shadedBackground::Render() {
-        assertCond(windowref == nullptr, "windowref is not set!");
+        assertCond(windowref == nullptr, "windowref is not set!\nSet it via setView(window*)");
         auto windowSize = sf::Vector2f(windowref->getSize());
         renderTarget.setTextureRect(sf::IntRect(0, 0, windowSize.x, windowSize.y));
+        // set drawable size to window size
         renderTarget.setSize(windowSize);
+        // set drawable position to top left corner
         renderTarget.setPosition(windowref->mapPixelToCoords(sf::Vector2i(
             0, 0
         )));
+        // get windows center position
         auto position = windowref->getView().getCenter();
+        // set top left corner coords
         shader.setUniform("pos", sf::Vector2f(position.x - windowSize.x / 2,  position.y - windowSize.y / 2));
+        // set window size
         shader.setUniform("size", windowSize);
         return renderStruct {&renderTarget, &shader};
     }

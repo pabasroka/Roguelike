@@ -15,4 +15,4 @@ run: $(OUT)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJFILES) $(OUT)
+	rm -f $(OBJFILES) $(OUT) vgcore.*

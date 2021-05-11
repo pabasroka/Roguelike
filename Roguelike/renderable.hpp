@@ -14,8 +14,11 @@ struct renderStruct {
 
 namespace component {
     class Renderable : public component::Component {
+        // Anything that has to be drawn to a screen must descend from this class
     public:
         Renderable(entity::Entity* parent_);
+        // Called before drawing, must return a sf::Drawable*
+        // and can optionaly return a sf::Shader* 
         virtual renderStruct Render() = 0;
     };
 }

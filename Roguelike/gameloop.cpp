@@ -33,7 +33,8 @@ void gameloop() {
     view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     view.setCenter(100.f, 100.f);
     window.setVerticalSyncEnabled(true);
-
+    
+    // create scene
     entity::EntitySystem testScene = entity::EntitySystem();
     // setup background
     testScene.addEntity(new entity::background(
@@ -59,7 +60,7 @@ void gameloop() {
         &testScene
     ));
     
-    // get refrance to player
+    // get refrence to player
     auto player = testScene.GetEntityByTag(entity::entityTags::player);
 
     // ========================== GAME LOOP ========================== 
@@ -70,20 +71,21 @@ void gameloop() {
             if (event.type == sf::Event::Closed) 
                 window.close();
             if (event.type == sf::Event::EventType::Resized) {
+                // handle changed window size
                 auto windowSize = window.getSize();
                 view.setSize((float) windowSize.x, (float) windowSize.y);
-                print("Window size changed!")
+                print("Window size changed!");
+                printVec2(windowSize);
             }
         }
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<double> timeSinceLastFrame = now - lastTime;
+        lastTime = now;
         // print fps
         std::cout << "fps: " << 1.0 / timeSinceLastFrame.count() << "\r"; 
         std::cout.flush();
-        lastTime = now;
-        //double normalFpsDeviation = (1./60.) / timeSinceLastFrame.count();
 
-        // Simple movement mechanics
+        // not-so-simple movement mechanics
         b2Vec2 playerForce {0, 0};
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window.close();
@@ -98,19 +100,23 @@ void gameloop() {
 
         // if player wants movement, give him movement
         if (playerForce.Length() > 0) {
+            // get refrence to PhysicsBody component
             auto playerPhys = player.lock()->GetComponent<component::PhysicsBody>();
             playerForce.Normalize();
             playerForce.x *= playerSpeed;
             playerForce.y *= playerSpeed;
             playerPhys->body->ApplyForceToCenter(playerForce, true);
         }
-
-        // Refresh view
-        view.setCenter(player.lock()->position.xy);
-        window.setView(view);
+        auto preUpdatePos = player.lock()->position;
         // do Update() tick;
         testScene.doUpdateTick();
         testScene.doFixedUpdateTick(timeSinceLastFrame.count());
+
+        // Refresh view
+        auto postUpdatePos = player.lock()->position;
+        sf::Vector2f newViewPos = (-preUpdatePos.xy + postUpdatePos.xy) * float(25.0) + postUpdatePos.xy;
+        view.setCenter(newViewPos);
+        window.setView(view);
 
         // DRAWING SECTION
         window.clear();

@@ -20,9 +20,12 @@ namespace entity {
             entityTags tag_, 
             const EntitySystem* scene_ = nullptr
         );
+        // Entities can be searched by their tags
         entityTags tag;
         utils::Position position;
+        // pointer to parent scene
         const EntitySystem* scene;
+        // vector of components
         std::vector<std::unique_ptr<component::Component>> components;
         template <class T>
         T* GetComponent() {
@@ -40,8 +43,10 @@ namespace entity {
             }
             return res;
         }
-        virtual void Initialize(); // put specific component initialization here
-        virtual void LateInitialize(); // called after Awake on components
+        // Use the addComponent() macro here to add components
+        virtual void Initialize();
+        // You can modify components here, called after Awake() on all components
+        virtual void LateInitialize();
     protected:
     private:
     };

@@ -16,7 +16,7 @@ namespace component {
         virtual void Awake(); // called on creation
         virtual ~Component();
     protected:
-        entity::Entity* parent;
+        entity::Entity* parent; // pointer to Entity containing this component
     };
 }
 #ifndef EntityDefined

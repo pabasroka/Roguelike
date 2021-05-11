@@ -13,9 +13,16 @@
 
 namespace component {
     class shadedBackground : public component::Renderable {
+        // draws a shader to the whole window background
+        // use Initialize() to setup shader and 
+        // Update() / FixedUpdate() to set uniforms
+        //
+        // passes vec2 `pos` with window's view position and
+        // vec2 `size` with window size
+        // Call setView() to set window from gameloop()
     public:
         shadedBackground(entity::Entity* parent_);
-        virtual void initialize();
+        virtual void Initialize();
         void Awake() override;
         void setView(sf::Window* window);
         renderStruct Render() override;

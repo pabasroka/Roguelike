@@ -10,6 +10,7 @@
 
 
 #define print(var) std::cerr << __FILE__ << ":" << __LINE__ << "\t" << #var << " -> \t" << var << std::endl;
+#define printVec2(var) std::cerr << __FILE__ << ":" << __LINE__ << "\t" << #var << " -> \t(" << var.x << "; " << var.y << ")" << std::endl;
 
 #define assertCond(condition, msg) if(condition) { \
     std::cerr << "ASSERTION: " << __FILE__ << ":" << __LINE__ << "\t->\t" << #condition << std::endl; \

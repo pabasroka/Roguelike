@@ -9,6 +9,8 @@
 
 namespace component {
     class PhysicsBody : public Component {
+            // Box2D dynamic body class
+            // #TODO: try to get collider size from sprite
         public:
             PhysicsBody(entity::Entity* parent_);
             b2Body* body;

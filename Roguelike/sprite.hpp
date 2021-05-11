@@ -9,6 +9,8 @@
 
 namespace component {
     class SpriteRenderer : public component::Renderable {
+        // Simple Sprite handling class
+        // Setup sprite in Initialize()
     public:
         SpriteRenderer(entity::Entity* parent_);
         void Awake() override;
