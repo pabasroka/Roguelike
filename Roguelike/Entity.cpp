@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 #include "Component.hpp"
-#include "EntitySystem.hpp"
-#include "EntityTags.hpp"
+#include "Entity-System.hpp"
+#include "Entity-Tags.hpp"
 #include <memory>
 #include <typeinfo>
 

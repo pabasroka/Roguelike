@@ -1,8 +1,8 @@
 #pragma once 
 
 #include "Entity.hpp"
-#include "EntitySystem.hpp"
-#include "Position.hpp"
+#include "Entity-System.hpp"
+#include "Utils-Position.hpp"
 
 namespace entity {
     class background : public Entity {

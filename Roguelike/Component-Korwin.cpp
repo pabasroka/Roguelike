@@ -1,4 +1,4 @@
-#include "korwin.hpp"
+#include "Component-Korwin.hpp"
 #include <SFML/Graphics/Shader.hpp>
 #include "funcs.hpp"
 

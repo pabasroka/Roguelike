@@ -1,4 +1,4 @@
-#include "physicsBody.hpp"
+#include "Component-Physics.hpp"
 #include "Component.hpp"
 #include "Entity.hpp"
 #include <box2d/b2_body.h>

@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.hpp"
-#include "shadedSprite.hpp"
+#include "Component-Shaded-Sprite.hpp"
 
 namespace component {
     namespace sprites {

@@ -1,7 +1,7 @@
-#include "testEntity.hpp"
-#include "EntitySystem.hpp"
-#include "EntityTags.hpp"
-#include "Position.hpp"
+#include "Entity-Test.hpp"
+#include "Entity-System.hpp"
+#include "Entity-Tags.hpp"
+#include "Utils-Position.hpp"
 #include "funcs.hpp"
 #include "testSprite.hpp"
 

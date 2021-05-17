@@ -6,8 +6,8 @@
     #include "Component.hpp"
 #endif
 
-#include "Position.hpp"
-#include "EntityTags.hpp"
+#include "Utils-Position.hpp"
+#include "Entity-Tags.hpp"
 #include <vector>
 #include <memory>
 
@@ -53,5 +53,5 @@ namespace entity {
 }
 
 #ifndef EntitySystemDefined
-    #include "EntitySystem.hpp"
+    #include "Entity-System.hpp"
 #endif

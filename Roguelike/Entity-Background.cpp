@@ -1,9 +1,9 @@
-#include "backgroundEntity.hpp"
-#include "EntitySystem.hpp"
-#include "EntityTags.hpp"
-#include "Position.hpp"
+#include "Entity-Background.hpp"
+#include "Entity-System.hpp"
+#include "Entity-Tags.hpp"
+#include "Utils-Position.hpp"
 #include "funcs.hpp"
-#include "shadedBackground.hpp"
+#include "Component-Shaded-Background.hpp"
 
 namespace entity {
     background::background(const EntitySystem* scene_)

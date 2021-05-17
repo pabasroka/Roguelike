@@ -1,7 +1,7 @@
-#include "korwin.hpp"
+#include "Component-Korwin.hpp"
 #include "funcs.hpp"
-#include "korwintest.hpp"
-#include "physicsBody.hpp"
+#include "Entity-Korwin.hpp"
+#include "Component-Physics.hpp"
 
 namespace entity {
     namespace tests {      

@@ -1,4 +1,4 @@
-#include "playerSprite.hpp"
+#include "Component-Sprite-Player.hpp"
 #include "Entity.hpp"
 #include "funcs.hpp"
 #include "sprite.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EntityTags.hpp"
+#include "Entity-Tags.hpp"
 #define EntitySystemDefined
 #ifndef EntityDefined
     #include "Entity.hpp"

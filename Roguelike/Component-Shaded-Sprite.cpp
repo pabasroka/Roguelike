@@ -1,7 +1,7 @@
-#include "shadedSprite.hpp"
+#include "Component-Shaded-Sprite.hpp"
 #include "Component.hpp"
 #include "Entity.hpp"
-#include "renderable.hpp"
+#include "Component-Renderable.hpp"
 #include <SFML/Graphics/Shader.hpp>
 #include "funcs.hpp"
 

@@ -1,6 +1,6 @@
-#include "shadedBackground.hpp"
+#include "Component-Shaded-Background.hpp"
 #include "Entity.hpp"
-#include "renderable.hpp"
+#include "Component-Renderable.hpp"
 #include "funcs.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>

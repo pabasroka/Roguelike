@@ -1,6 +1,6 @@
 #include "sprite.hpp"
 #include "funcs.hpp"
-#include "renderable.hpp"
+#include "Component-Renderable.hpp"
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <iostream>

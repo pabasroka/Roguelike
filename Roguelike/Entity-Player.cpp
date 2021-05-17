@@ -1,11 +1,11 @@
-#include "player.hpp"
+#include "Entity-Player.hpp"
 #include "Component.hpp"
-#include "EntitySystem.hpp"
-#include "EntityTags.hpp"
-#include "Position.hpp"
+#include "Entity-System.hpp"
+#include "Entity-Tags.hpp"
+#include "Utils-Position.hpp"
 #include "funcs.hpp"
-#include "physicsBody.hpp"
-#include "playerSprite.hpp"
+#include "Component-Physics.hpp"
+#include "Component-Sprite-Player.hpp"
 #include <box2d/b2_math.h>
 
 namespace entity {

@@ -1,8 +1,8 @@
-#include "EntitySystem.hpp"
-#include "EntityTags.hpp"
+#include "Entity-System.hpp"
+#include "Entity-Tags.hpp"
 #include "funcs.hpp"
 #include "Entity.hpp"
-#include "physicsBody.hpp"
+#include "Component-Physics.hpp"
 #include <box2d/b2_math.h>
 #include <box2d/b2_world.h>
 #include <memory>

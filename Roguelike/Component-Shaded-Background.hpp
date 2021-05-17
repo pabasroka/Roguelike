@@ -9,7 +9,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Window.hpp>
 #include <cstddef>
-#include "renderable.hpp"
+#include "Component-Renderable.hpp"
 
 namespace component {
     class shadedBackground : public component::Renderable {

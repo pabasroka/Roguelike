@@ -2,7 +2,7 @@
 
 #include "Component.hpp"
 #include "Entity.hpp"
-#include "Position.hpp"
+#include "Utils-Position.hpp"
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Sprite.hpp>
