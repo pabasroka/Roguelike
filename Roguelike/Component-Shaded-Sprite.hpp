@@ -1,7 +1,7 @@
 #pragma once 
 #include "Component.hpp"
 #include "Entity.hpp"
-#include "sprite.hpp"
+#include "Component-Sprite.hpp"
 #include <SFML/Graphics/Shader.hpp>
 
 namespace component {

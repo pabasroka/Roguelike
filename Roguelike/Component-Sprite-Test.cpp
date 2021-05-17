@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 #include "funcs.hpp"
-#include "sprite.hpp"
-#include "testSprite.hpp"
+#include "Component-Sprite.hpp"
+#include "Component-Sprite-Test.hpp"
 #include <SFML/System/Vector2.hpp>
 
 namespace component {

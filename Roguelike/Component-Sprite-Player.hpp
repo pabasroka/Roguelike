@@ -2,7 +2,7 @@
 
 #include "Component.hpp"
 #include "Entity.hpp"
-#include "sprite.hpp"
+#include "Component-Sprite.hpp"
 
 namespace component {
     namespace sprites {

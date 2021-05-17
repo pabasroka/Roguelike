@@ -1,7 +1,7 @@
 #include "Component-Sprite-Player.hpp"
 #include "Entity.hpp"
 #include "funcs.hpp"
-#include "sprite.hpp"
+#include "Component-Sprite.hpp"
 
 namespace component {
     namespace sprites {

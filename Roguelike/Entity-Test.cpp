@@ -3,7 +3,7 @@
 #include "Entity-Tags.hpp"
 #include "Utils-Position.hpp"
 #include "funcs.hpp"
-#include "testSprite.hpp"
+#include "Component-Sprite-Test.hpp"
 
 namespace entity {
     testEntity::testEntity(utils::Position position_, const EntitySystem* scene_) 
