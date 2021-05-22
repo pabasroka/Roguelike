@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Component.hpp"
 #include "Entity-Tags.hpp"
 #define EntitySystemDefined
 #ifndef EntityDefined
@@ -15,6 +16,7 @@ namespace entity {
         normal,
         top
     };
+    const layers allLayers[] = {back, normal, top};
     class EntitySystem {
         public:
             // vectors with entities for three layers
@@ -25,6 +27,8 @@ namespace entity {
             // is a shared ptr so component deconstructors can use it
             std::shared_ptr<b2World> physicsWorld;
             EntitySystem();
+            // deletes an entity
+            void deleteEntity(Entity* toDelete);
             // returns first entity in normal with tag
             std::weak_ptr<Entity> GetEntityByTag(entityTags tag);
             // returns all entities in normal with tag
@@ -37,5 +41,7 @@ namespace entity {
             // calls Awake() on components, then LateInitialize() on entity
             std::weak_ptr<Entity> addEntity(Entity* entity, layers layer = layers::normal);
             virtual ~EntitySystem();
+        private:
+            std::vector<std::shared_ptr<Entity>>& getVectorByLayer(layers layer);
     };
 }

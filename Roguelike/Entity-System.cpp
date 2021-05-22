@@ -7,6 +7,7 @@
 #include <box2d/b2_world.h>
 #include <memory>
 #include <pthread.h>
+#include <stdexcept>
 #include <vector>
 
 namespace entity {
@@ -16,6 +17,21 @@ namespace entity {
         top = std::vector<std::shared_ptr<Entity>>();
         physicsWorld = std::shared_ptr<b2World>(new b2World(b2Vec2(0., 0.))); 
     }
+
+    std::vector<std::shared_ptr<Entity>>& EntitySystem::getVectorByLayer(layers layer) {
+        switch (layer) {
+            case layers::back: 
+                return background;
+            case layers::normal:
+                return normal;
+            case layers::top:
+                return top;
+            default:
+                // komputer pijany
+                throw std::runtime_error("Are you on sth?");
+        }
+    }
+
     std::weak_ptr<Entity> EntitySystem::addEntity(Entity* entity, layers layer) {
         auto entityRef = std::shared_ptr<Entity>(entity);
         auto physics = entityRef->GetComponent<component::PhysicsBody>();
@@ -31,48 +47,33 @@ namespace entity {
         else top.push_back(entityRef);
         return std::weak_ptr<Entity>(entityRef);
     }
+
     void EntitySystem::doUpdateTick() {
-        for (unsigned long int i = 0; i < background.size(); i++) {
-            auto entity = background[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->Update();
-            }
-        }
-        for (unsigned long int i = 0; i < normal.size(); i++) {
-            auto entity = normal[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->Update();
-            }
-        }
-        for (unsigned long int i = 0; i < top.size(); i++) {
-            auto entity = top[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->Update();
+        for (const auto i : allLayers) {
+            auto vectorRef = getVectorByLayer(i);
+            for (unsigned long int i = 0; i < vectorRef.size(); i++) {
+                auto entity = vectorRef[i];
+                for (unsigned long int j = 0; j < entity->components.size(); j++) {
+                    entity->components[j]->Update();
+                }
             }
         }
     }
+
     void EntitySystem::doFixedUpdateTick(double timeDelta) {
-        for (unsigned long int i = 0; i < background.size(); i++) {
-            auto entity = background[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->FixedUpdate(timeDelta);
-            }
-        }
-        for (unsigned long int i = 0; i < normal.size(); i++) {
-            auto entity = normal[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->FixedUpdate(timeDelta);
-            }
-        }
-        for (unsigned long int i = 0; i < top.size(); i++) {
-            auto entity = top[i];
-            for (unsigned long int j = 0; j < entity->components.size(); j++) {
-                entity->components[j]->FixedUpdate(timeDelta);
+        for (const auto i : allLayers) {
+            auto vectorRef = getVectorByLayer(i);
+            for (unsigned long int i = 0; i < vectorRef.size(); i++) {
+                auto entity = vectorRef[i];
+                for (unsigned long int j = 0; j < entity->components.size(); j++) {
+                    entity->components[j]->FixedUpdate(timeDelta);
+                }
             }
         }
         // do physics stuff
         physicsWorld->Step(timeDelta, 8, 3);
     }
+
     std::weak_ptr<Entity> EntitySystem::GetEntityByTag(entityTags tag) {
         std::weak_ptr<Entity> res = std::weak_ptr<Entity>(std::shared_ptr<Entity>(nullptr));
         for (unsigned long int i = 0; i < normal.size(); i++) {
@@ -93,5 +94,6 @@ namespace entity {
         }
         return resultVec;
     }
+
     EntitySystem::~EntitySystem() {}
 }
